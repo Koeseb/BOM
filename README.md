@@ -1,7 +1,5 @@
 # BOM
 Bundesorganisationsmanagement
 
-
-Tina 
-
-Sebastian
+====
+Tina, Sebastian
