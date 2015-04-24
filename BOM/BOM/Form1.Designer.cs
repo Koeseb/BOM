@@ -28,12 +28,79 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.input_nutzerName = new System.Windows.Forms.TextBox();
+            this.label_nutzerName = new System.Windows.Forms.Label();
+            this.input_pwd = new System.Windows.Forms.TextBox();
+            this.label_pwd = new System.Windows.Forms.Label();
+            this.button_Anmelden = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // input_nutzerName
+            // 
+            this.input_nutzerName.Location = new System.Drawing.Point(106, 34);
+            this.input_nutzerName.Name = "input_nutzerName";
+            this.input_nutzerName.Size = new System.Drawing.Size(180, 20);
+            this.input_nutzerName.TabIndex = 0;
+            // 
+            // label_nutzerName
+            // 
+            this.label_nutzerName.AutoSize = true;
+            this.label_nutzerName.Location = new System.Drawing.Point(33, 37);
+            this.label_nutzerName.Name = "label_nutzerName";
+            this.label_nutzerName.Size = new System.Drawing.Size(67, 13);
+            this.label_nutzerName.TabIndex = 1;
+            this.label_nutzerName.Text = "Nutzername:";
+            // 
+            // input_pwd
+            // 
+            this.input_pwd.Location = new System.Drawing.Point(106, 83);
+            this.input_pwd.Name = "input_pwd";
+            this.input_pwd.Size = new System.Drawing.Size(180, 20);
+            this.input_pwd.TabIndex = 2;
+            // 
+            // label_pwd
+            // 
+            this.label_pwd.AutoSize = true;
+            this.label_pwd.Location = new System.Drawing.Point(33, 86);
+            this.label_pwd.Name = "label_pwd";
+            this.label_pwd.Size = new System.Drawing.Size(53, 13);
+            this.label_pwd.TabIndex = 3;
+            this.label_pwd.Text = "Passwort:";
+            // 
+            // button_Anmelden
+            // 
+            this.button_Anmelden.Location = new System.Drawing.Point(124, 139);
+            this.button_Anmelden.Name = "button_Anmelden";
+            this.button_Anmelden.Size = new System.Drawing.Size(75, 23);
+            this.button_Anmelden.TabIndex = 4;
+            this.button_Anmelden.Text = "Anmelden";
+            this.button_Anmelden.UseVisualStyleBackColor = true;
+            this.button_Anmelden.Click += new System.EventHandler(this.button_Anmelden_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(327, 198);
+            this.Controls.Add(this.button_Anmelden);
+            this.Controls.Add(this.label_pwd);
+            this.Controls.Add(this.input_pwd);
+            this.Controls.Add(this.label_nutzerName);
+            this.Controls.Add(this.input_nutzerName);
+            this.Name = "Form1";
+            this.Text = "BOM";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.TextBox input_nutzerName;
+        private System.Windows.Forms.Label label_nutzerName;
+        private System.Windows.Forms.TextBox input_pwd;
+        private System.Windows.Forms.Label label_pwd;
+        private System.Windows.Forms.Button button_Anmelden;
     }
 }
 
