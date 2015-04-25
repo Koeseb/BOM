@@ -6,3 +6,4 @@
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.pdb
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.Form1.resources
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.csprojResolveAssemblyReference.cache
+\\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.Main.resources
