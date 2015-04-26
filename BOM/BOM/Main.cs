@@ -38,27 +38,7 @@ namespace BOM
                 index_topicList = 0;
             }
 
-            switch (index_topicList)
-            {
-                case 0:
-                    label_Topic.Text = topicList[index_topicList];
-                    listView_ActivityList.Show();
-                    break;
-                case 1:
-                    label_Topic.Text = topicList[index_topicList];
-                    if (listView_ActivityList.Visible)
-                    {
-                        listView_ActivityList.Hide();
-                    }
-                    break;
-                case 2:
-                    label_Topic.Text = topicList[index_topicList];
-                    if (listView_ActivityList.Visible)
-                    {
-                        listView_ActivityList.Hide();
-                    }
-                    break;
-            }
+            performFormUpdate(index_topicList);
         }
 
         private void button_Back_Click(object sender, EventArgs e)
@@ -72,7 +52,12 @@ namespace BOM
                 index_topicList = topicList.Length;
             }
 
-            switch (index_topicList)
+            performFormUpdate(index_topicList);
+        }
+
+        private void performFormUpdate(int currenttab)
+        {
+            switch (currenttab)
             {
                 case 0:
                     label_Topic.Text = topicList[index_topicList];
