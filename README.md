@@ -2,4 +2,4 @@
 Bundesorganisationsmanagement
 
 ====
-Tina, Sebastian, Michael
+Tina, Sebastian, Michael, Bruno
