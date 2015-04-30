@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.Common;
+using System.Data.OleDb;
 
 namespace BOM
 {
@@ -22,62 +24,9 @@ namespace BOM
         private void Main_Load(object sender, EventArgs e)
         {
             // examples
-            listView_ActivityList.Items.Add("Franz Mueller hat 2543 Euro abgebucht (Grund: Kaffeemaschine kaputt).\n");
-            listView_ActivityList.Items.Add("Ramasan Butaki hat fuer 300 Euro einen Schrank gekauft.\n");
-            listView_ActivityList.Items.Add("Marus Troester hat 20 Euro abgebucht (Grund: Nach Neuseeland fliegen.)\n");
-        }
-
-        private void button_Forward_Click(object sender, EventArgs e)
-        {
-            /*
-             * reset
-             */
-            index_topicList++;
-            if (index_topicList > topicList.Length - 1)
-            {
-                index_topicList = 0;
-            }
-
-            performFormUpdate(index_topicList);
-        }
-
-        private void button_Back_Click(object sender, EventArgs e)
-        {
-            /*
-             * reset
-             */
-            index_topicList--;
-            if (index_topicList < 0)
-            {
-                index_topicList = topicList.Length;
-            }
-
-            performFormUpdate(index_topicList);
-        }
-
-        private void performFormUpdate(int currenttab)
-        {
-            switch (currenttab)
-            {
-                case 0:
-                    label_Topic.Text = topicList[index_topicList];
-                    listView_ActivityList.Show();
-                    break;
-                case 1:
-                    label_Topic.Text = topicList[index_topicList];
-                    if (listView_ActivityList.Visible)
-                    {
-                        listView_ActivityList.Hide();
-                    }
-                    break;
-                case 2:
-                    label_Topic.Text = topicList[index_topicList];
-                    if (listView_ActivityList.Visible)
-                    {
-                        listView_ActivityList.Hide();
-                    }
-                    break;
-            }
+            ListBox_ActivityList.Items.Add("Franz Mueller hat 2543 Euro abgebucht (Grund: Kaffeemaschine kaputt).\n");
+            ListBox_ActivityList.Items.Add("Ramasan Butaki hat fuer 300 Euro einen Schrank gekauft.\n");
+            ListBox_ActivityList.Items.Add("Marus Troester hat 20 Euro abgebucht (Grund: Nach Neuseeland fliegen.)\n");
         }
     }
 }

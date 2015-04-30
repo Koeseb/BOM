@@ -31,11 +31,15 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label_Topic = new System.Windows.Forms.Label();
-            this.button_Back = new System.Windows.Forms.Button();
-            this.button_Forward = new System.Windows.Forms.Button();
-            this.listView_ActivityList = new System.Windows.Forms.ListBox();
+            this.mainTabControl = new System.Windows.Forms.TabControl();
+            this.ActivityPage = new System.Windows.Forms.TabPage();
+            this.BuchungsPage = new System.Windows.Forms.TabPage();
+            this.FahrtenPage = new System.Windows.Forms.TabPage();
+            this.ListBox_ActivityList = new System.Windows.Forms.ListBox();
+            this.Label_Activities = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
+            this.mainTabControl.SuspendLayout();
+            this.ActivityPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -61,55 +65,72 @@
             this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.bearbeitenToolStripMenuItem.Text = "Bearbeiten";
             // 
-            // label_Topic
+            // mainTabControl
             // 
-            this.label_Topic.AutoSize = true;
-            this.label_Topic.Font = new System.Drawing.Font("Segoe UI Light", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_Topic.Location = new System.Drawing.Point(77, 25);
-            this.label_Topic.Name = "label_Topic";
-            this.label_Topic.Size = new System.Drawing.Size(183, 45);
-            this.label_Topic.TabIndex = 1;
-            this.label_Topic.Text = "Aktivitaeten";
+            this.mainTabControl.Controls.Add(this.ActivityPage);
+            this.mainTabControl.Controls.Add(this.BuchungsPage);
+            this.mainTabControl.Controls.Add(this.FahrtenPage);
+            this.mainTabControl.Location = new System.Drawing.Point(0, 27);
+            this.mainTabControl.Name = "mainTabControl";
+            this.mainTabControl.SelectedIndex = 0;
+            this.mainTabControl.Size = new System.Drawing.Size(698, 336);
+            this.mainTabControl.TabIndex = 6;
             // 
-            // button_Back
+            // ActivityPage
             // 
-            this.button_Back.Location = new System.Drawing.Point(12, 27);
-            this.button_Back.Name = "button_Back";
-            this.button_Back.Size = new System.Drawing.Size(60, 40);
-            this.button_Back.TabIndex = 3;
-            this.button_Back.Text = "<--";
-            this.button_Back.UseVisualStyleBackColor = true;
-            this.button_Back.Click += new System.EventHandler(this.button_Back_Click);
+            this.ActivityPage.Controls.Add(this.Label_Activities);
+            this.ActivityPage.Controls.Add(this.ListBox_ActivityList);
+            this.ActivityPage.Location = new System.Drawing.Point(4, 22);
+            this.ActivityPage.Name = "ActivityPage";
+            this.ActivityPage.Size = new System.Drawing.Size(690, 310);
+            this.ActivityPage.TabIndex = 0;
+            this.ActivityPage.Text = "Aktivitaeten";
+            this.ActivityPage.UseVisualStyleBackColor = true;
             // 
-            // button_Forward
+            // BuchungsPage
             // 
-            this.button_Forward.Location = new System.Drawing.Point(626, 30);
-            this.button_Forward.Name = "button_Forward";
-            this.button_Forward.Size = new System.Drawing.Size(60, 40);
-            this.button_Forward.TabIndex = 4;
-            this.button_Forward.Text = "-->";
-            this.button_Forward.UseVisualStyleBackColor = true;
-            this.button_Forward.Click += new System.EventHandler(this.button_Forward_Click);
+            this.BuchungsPage.Location = new System.Drawing.Point(4, 22);
+            this.BuchungsPage.Name = "BuchungsPage";
+            this.BuchungsPage.Size = new System.Drawing.Size(690, 310);
+            this.BuchungsPage.TabIndex = 1;
+            this.BuchungsPage.Text = "Buchungen";
+            this.BuchungsPage.UseVisualStyleBackColor = true;
             // 
-            // listView_ActivityList
+            // FahrtenPage
             // 
-            this.listView_ActivityList.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView_ActivityList.FormattingEnabled = true;
-            this.listView_ActivityList.ItemHeight = 21;
-            this.listView_ActivityList.Location = new System.Drawing.Point(12, 74);
-            this.listView_ActivityList.Name = "listView_ActivityList";
-            this.listView_ActivityList.Size = new System.Drawing.Size(674, 277);
-            this.listView_ActivityList.TabIndex = 5;
+            this.FahrtenPage.Location = new System.Drawing.Point(4, 22);
+            this.FahrtenPage.Name = "FahrtenPage";
+            this.FahrtenPage.Size = new System.Drawing.Size(690, 310);
+            this.FahrtenPage.TabIndex = 2;
+            this.FahrtenPage.Text = "Fahrten";
+            this.FahrtenPage.UseVisualStyleBackColor = true;
+            // 
+            // ListBox_ActivityList
+            // 
+            this.ListBox_ActivityList.Font = new System.Drawing.Font("Segoe UI Light", 12.25F);
+            this.ListBox_ActivityList.FormattingEnabled = true;
+            this.ListBox_ActivityList.ItemHeight = 21;
+            this.ListBox_ActivityList.Location = new System.Drawing.Point(3, 58);
+            this.ListBox_ActivityList.Name = "ListBox_ActivityList";
+            this.ListBox_ActivityList.Size = new System.Drawing.Size(684, 235);
+            this.ListBox_ActivityList.TabIndex = 0;
+            // 
+            // Label_Activities
+            // 
+            this.Label_Activities.AutoSize = true;
+            this.Label_Activities.Font = new System.Drawing.Font("Segoe UI Light", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label_Activities.Location = new System.Drawing.Point(8, 9);
+            this.Label_Activities.Name = "Label_Activities";
+            this.Label_Activities.Size = new System.Drawing.Size(149, 37);
+            this.Label_Activities.TabIndex = 1;
+            this.Label_Activities.Text = "Aktivitaeten";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 362);
-            this.Controls.Add(this.listView_ActivityList);
-            this.Controls.Add(this.button_Forward);
-            this.Controls.Add(this.button_Back);
-            this.Controls.Add(this.label_Topic);
+            this.Controls.Add(this.mainTabControl);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
@@ -117,6 +138,9 @@
             this.Load += new System.EventHandler(this.Main_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.mainTabControl.ResumeLayout(false);
+            this.ActivityPage.ResumeLayout(false);
+            this.ActivityPage.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,9 +151,11 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem dateiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem;
-        private System.Windows.Forms.Label label_Topic;
-        private System.Windows.Forms.Button button_Back;
-        private System.Windows.Forms.Button button_Forward;
-        private System.Windows.Forms.ListBox listView_ActivityList;
+        private System.Windows.Forms.TabControl mainTabControl;
+        private System.Windows.Forms.TabPage ActivityPage;
+        private System.Windows.Forms.TabPage BuchungsPage;
+        private System.Windows.Forms.TabPage FahrtenPage;
+        private System.Windows.Forms.ListBox ListBox_ActivityList;
+        private System.Windows.Forms.Label Label_Activities;
     }
 }

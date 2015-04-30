@@ -1,14 +1,9 @@
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\bin\Debug\BOM.exe
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\bin\Debug\BOM.pdb
+\\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.Form1.resources
+\\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.Main.resources
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.Properties.Resources.resources
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.csproj.GenerateResource.Cache
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.exe
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.pdb
-\\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.Form1.resources
-\\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.csprojResolveAssemblyReference.cache
-<<<<<<< HEAD
-C:\Users\Sebastian\Documents\GitHub\BOM\BOM\BOM\obj\x86\Debug\BOM.exe
-C:\Users\Sebastian\Documents\GitHub\BOM\BOM\BOM\obj\x86\Debug\BOM.pdb
-=======
-\\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.Main.resources
->>>>>>> origin/master
+\\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\bin\Debug\BOM.exe.config
