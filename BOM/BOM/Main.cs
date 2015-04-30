@@ -28,5 +28,10 @@ namespace BOM
             ListBox_ActivityList.Items.Add("Ramasan Butaki hat fuer 300 Euro einen Schrank gekauft.\n");
             ListBox_ActivityList.Items.Add("Marus Troester hat 20 Euro abgebucht (Grund: Nach Neuseeland fliegen.)\n");
         }
+
+        private void Label_Rechnungsdatum_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
