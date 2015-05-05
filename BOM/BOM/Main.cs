@@ -36,5 +36,10 @@ namespace BOM
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void Label_Rechnungsdatum_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

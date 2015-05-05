@@ -7,4 +7,10 @@
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.exe
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.pdb
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\bin\Debug\BOM.exe.config
+<<<<<<< HEAD
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.csprojResolveAssemblyReference.cache
+=======
+C:\Users\COMPAQ\Documents\GitHub\BOM\BOM\BOM\bin\Debug\BOM.exe.config
+C:\Users\COMPAQ\Documents\GitHub\BOM\BOM\BOM\obj\x86\Debug\BOM.exe
+C:\Users\COMPAQ\Documents\GitHub\BOM\BOM\BOM\obj\x86\Debug\BOM.pdb
+>>>>>>> origin/master
