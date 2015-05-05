@@ -46,8 +46,6 @@ namespace BOM {
         
         private global::System.Data.DataRelation relationNutzerAnschaffung;
         
-        private global::System.Data.DataRelation relationNutzerBuchung;
-        
         private global::System.Data.DataRelation relationLocationFahrt;
         
         private global::System.Data.DataRelation relationLocationFahrt1;
@@ -402,7 +400,6 @@ namespace BOM {
             }
             this.relationAnschaffungAfA = this.Relations["AnschaffungAfA"];
             this.relationNutzerAnschaffung = this.Relations["NutzerAnschaffung"];
-            this.relationNutzerBuchung = this.Relations["NutzerBuchung"];
             this.relationLocationFahrt = this.Relations["LocationFahrt"];
             this.relationLocationFahrt1 = this.Relations["LocationFahrt1"];
             this.relationAbteilungNutzer = this.Relations["AbteilungNutzer"];
@@ -443,10 +440,6 @@ namespace BOM {
                         this.tableNutzer.NutzerIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableAnschaffung.ErstellerIDColumn}, false);
             this.Relations.Add(this.relationNutzerAnschaffung);
-            this.relationNutzerBuchung = new global::System.Data.DataRelation("NutzerBuchung", new global::System.Data.DataColumn[] {
-                        this.tableNutzer.NutzerIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableBuchung.ErstellerIDColumn}, false);
-            this.Relations.Add(this.relationNutzerBuchung);
             this.relationLocationFahrt = new global::System.Data.DataRelation("LocationFahrt", new global::System.Data.DataColumn[] {
                         this.tableLocation.OrtNRColumn}, new global::System.Data.DataColumn[] {
                         this.tableFahrt.AbfahrtsortColumn}, false);
@@ -461,7 +454,7 @@ namespace BOM {
             this.Relations.Add(this.relationAbteilungNutzer);
             this.relationLocationNutzer = new global::System.Data.DataRelation("LocationNutzer", new global::System.Data.DataColumn[] {
                         this.tableLocation.OrtNRColumn}, new global::System.Data.DataColumn[] {
-                        this.tableNutzer.NutzerIDColumn}, false);
+                        this.tableNutzer.WohnLocColumn}, false);
             this.Relations.Add(this.relationLocationNutzer);
         }
         
@@ -1647,7 +1640,7 @@ namespace BOM {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public BuchungRow AddBuchungRow(int BelegNR, System.DateTime Rechnungsdatum, System.DateTime Buchungsdatum, double Betriebsanteil, int UST, NutzerRow parentNutzerRowByNutzerBuchung) {
+            public BuchungRow AddBuchungRow(int BelegNR, System.DateTime Rechnungsdatum, System.DateTime Buchungsdatum, double Betriebsanteil, int UST, int ErstellerID) {
                 BuchungRow rowBuchungRow = ((BuchungRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         BelegNR,
@@ -1655,10 +1648,7 @@ namespace BOM {
                         Buchungsdatum,
                         Betriebsanteil,
                         UST,
-                        null};
-                if ((parentNutzerRowByNutzerBuchung != null)) {
-                    columnValuesArray[5] = parentNutzerRowByNutzerBuchung[0];
-                }
+                        ErstellerID};
                 rowBuchungRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBuchungRow);
                 return rowBuchungRow;
@@ -3105,11 +3095,13 @@ namespace BOM {
             
             private global::System.Data.DataColumn columnNGeschl;
             
-            private global::System.Data.DataColumn columnNutzercol;
-            
             private global::System.Data.DataColumn columnAdmin;
             
             private global::System.Data.DataColumn columnAkz;
+            
+            private global::System.Data.DataColumn columnWohnLoc;
+            
+            private global::System.Data.DataColumn columnAbteilungsKz;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -3178,14 +3170,6 @@ namespace BOM {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn NutzercolColumn {
-                get {
-                    return this.columnNutzercol;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn AdminColumn {
                 get {
                     return this.columnAdmin;
@@ -3197,6 +3181,22 @@ namespace BOM {
             public global::System.Data.DataColumn AkzColumn {
                 get {
                     return this.columnAkz;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn WohnLocColumn {
+                get {
+                    return this.columnWohnLoc;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AbteilungsKzColumn {
+                get {
+                    return this.columnAbteilungsKz;
                 }
             }
             
@@ -3237,18 +3237,22 @@ namespace BOM {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public NutzerRow AddNutzerRow(string VName, string NName, bool NGeschl, string Nutzercol, bool Admin, AbteilungRow parentAbteilungRowByAbteilungNutzer) {
+            public NutzerRow AddNutzerRow(string VName, string NName, bool NGeschl, bool Admin, AbteilungRow parentAbteilungRowByAbteilungNutzer, LocationRow parentLocationRowByLocationNutzer, string AbteilungsKz) {
                 NutzerRow rowNutzerRow = ((NutzerRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         VName,
                         NName,
                         NGeschl,
-                        Nutzercol,
                         Admin,
-                        null};
+                        null,
+                        null,
+                        AbteilungsKz};
                 if ((parentAbteilungRowByAbteilungNutzer != null)) {
-                    columnValuesArray[6] = parentAbteilungRowByAbteilungNutzer[0];
+                    columnValuesArray[5] = parentAbteilungRowByAbteilungNutzer[0];
+                }
+                if ((parentLocationRowByLocationNutzer != null)) {
+                    columnValuesArray[6] = parentLocationRowByLocationNutzer[0];
                 }
                 rowNutzerRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowNutzerRow);
@@ -3283,9 +3287,10 @@ namespace BOM {
                 this.columnVName = base.Columns["VName"];
                 this.columnNName = base.Columns["NName"];
                 this.columnNGeschl = base.Columns["NGeschl"];
-                this.columnNutzercol = base.Columns["Nutzercol"];
                 this.columnAdmin = base.Columns["Admin"];
                 this.columnAkz = base.Columns["Akz"];
+                this.columnWohnLoc = base.Columns["WohnLoc"];
+                this.columnAbteilungsKz = base.Columns["AbteilungsKz"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3299,12 +3304,14 @@ namespace BOM {
                 base.Columns.Add(this.columnNName);
                 this.columnNGeschl = new global::System.Data.DataColumn("NGeschl", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNGeschl);
-                this.columnNutzercol = new global::System.Data.DataColumn("Nutzercol", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNutzercol);
                 this.columnAdmin = new global::System.Data.DataColumn("Admin", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAdmin);
                 this.columnAkz = new global::System.Data.DataColumn("Akz", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAkz);
+                this.columnWohnLoc = new global::System.Data.DataColumn("WohnLoc", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWohnLoc);
+                this.columnAbteilungsKz = new global::System.Data.DataColumn("AbteilungsKz", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAbteilungsKz);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnNutzerID}, true));
                 this.columnNutzerID.AutoIncrement = true;
@@ -3314,8 +3321,8 @@ namespace BOM {
                 this.columnNutzerID.Unique = true;
                 this.columnVName.MaxLength = 255;
                 this.columnNName.MaxLength = 255;
-                this.columnNutzercol.MaxLength = 255;
                 this.columnAkz.MaxLength = 3;
+                this.columnAbteilungsKz.MaxLength = 3;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3918,17 +3925,6 @@ namespace BOM {
                 }
                 set {
                     this[this.tableBuchung.ErstellerIDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public NutzerRow NutzerRow {
-                get {
-                    return ((NutzerRow)(this.GetParentRow(this.Table.ParentRelations["NutzerBuchung"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["NutzerBuchung"]);
                 }
             }
             
@@ -4619,22 +4615,6 @@ namespace BOM {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Nutzercol {
-                get {
-                    try {
-                        return ((string)(this[this.tableNutzer.NutzercolColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte Nutzercol in Tabelle Nutzer ist DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableNutzer.NutzercolColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Admin {
                 get {
                     try {
@@ -4662,6 +4642,38 @@ namespace BOM {
                 }
                 set {
                     this[this.tableNutzer.AkzColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int WohnLoc {
+                get {
+                    try {
+                        return ((int)(this[this.tableNutzer.WohnLocColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte WohnLoc in Tabelle Nutzer ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableNutzer.WohnLocColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string AbteilungsKz {
+                get {
+                    try {
+                        return ((string)(this[this.tableNutzer.AbteilungsKzColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte AbteilungsKz in Tabelle Nutzer ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableNutzer.AbteilungsKzColumn] = value;
                 }
             }
             
@@ -4725,18 +4737,6 @@ namespace BOM {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsNutzercolNull() {
-                return this.IsNull(this.tableNutzer.NutzercolColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetNutzercolNull() {
-                this[this.tableNutzer.NutzercolColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsAdminNull() {
                 return this.IsNull(this.tableNutzer.AdminColumn);
             }
@@ -4761,23 +4761,36 @@ namespace BOM {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsWohnLocNull() {
+                return this.IsNull(this.tableNutzer.WohnLocColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetWohnLocNull() {
+                this[this.tableNutzer.WohnLocColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAbteilungsKzNull() {
+                return this.IsNull(this.tableNutzer.AbteilungsKzColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAbteilungsKzNull() {
+                this[this.tableNutzer.AbteilungsKzColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AnschaffungRow[] GetAnschaffungRows() {
                 if ((this.Table.ChildRelations["NutzerAnschaffung"] == null)) {
                     return new AnschaffungRow[0];
                 }
                 else {
                     return ((AnschaffungRow[])(base.GetChildRows(this.Table.ChildRelations["NutzerAnschaffung"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public BuchungRow[] GetBuchungRows() {
-                if ((this.Table.ChildRelations["NutzerBuchung"] == null)) {
-                    return new BuchungRow[0];
-                }
-                else {
-                    return ((BuchungRow[])(base.GetChildRows(this.Table.ChildRelations["NutzerBuchung"])));
                 }
             }
         }
@@ -8510,13 +8523,14 @@ namespace BOM.dbDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("VName", "VName");
             tableMapping.ColumnMappings.Add("NName", "NName");
             tableMapping.ColumnMappings.Add("NGeschl", "NGeschl");
-            tableMapping.ColumnMappings.Add("Nutzercol", "Nutzercol");
             tableMapping.ColumnMappings.Add("Admin", "Admin");
             tableMapping.ColumnMappings.Add("Akz", "Akz");
+            tableMapping.ColumnMappings.Add("WohnLoc", "WohnLoc");
+            tableMapping.ColumnMappings.Add("AbteilungsKz", "AbteilungsKz");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Nutzer` WHERE ((`NutzerID` = ?) AND ((? = 1 AND `VName` IS NULL) OR (`VName` = ?)) AND ((? = 1 AND `NName` IS NULL) OR (`NName` = ?)) AND ((? = 1 AND `NGeschl` IS NULL) OR (`NGeschl` = ?)) AND ((? = 1 AND `Nutzercol` IS NULL) OR (`Nutzercol` = ?)) AND ((? = 1 AND `Admin` IS NULL) OR (`Admin` = ?)) AND ((? = 1 AND `Akz` IS NULL) OR (`Akz` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Nutzer` WHERE ((`NutzerID` = ?) AND ((? = 1 AND `VName` IS NULL) OR (`VName` = ?)) AND ((? = 1 AND `NName` IS NULL) OR (`NName` = ?)) AND ((? = 1 AND `NGeschl` IS NULL) OR (`NGeschl` = ?)) AND ((? = 1 AND `Admin` IS NULL) OR (`Admin` = ?)) AND ((? = 1 AND `Akz` IS NULL) OR (`Akz` = ?)) AND ((? = 1 AND `WohnLoc` IS NULL) OR (`WohnLoc` = ?)) AND ((? = 1 AND `AbteilungsKz` IS NULL) OR (`AbteilungsKz` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_NutzerID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NutzerID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_VName", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VName", global::System.Data.DataRowVersion.Original, true, null));
@@ -8525,33 +8539,37 @@ namespace BOM.dbDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_NName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NName", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_NGeschl", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NGeschl", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_NGeschl", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NGeschl", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Nutzercol", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nutzercol", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Nutzercol", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nutzercol", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Admin", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Admin", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Admin", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Admin", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Akz", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Akz", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Akz", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Akz", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_WohnLoc", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WohnLoc", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WohnLoc", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WohnLoc", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_AbteilungsKz", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AbteilungsKz", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_AbteilungsKz", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AbteilungsKz", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `Nutzer` (`VName`, `NName`, `NGeschl`, `Nutzercol`, `Admin`, `Akz`) V" +
-                "ALUES (?, ?, ?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `Nutzer` (`VName`, `NName`, `NGeschl`, `Admin`, `Akz`, `WohnLoc`, `Ab" +
+                "teilungsKz`) VALUES (?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("VName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VName", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("NName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NName", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("NGeschl", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NGeschl", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Nutzercol", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nutzercol", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Admin", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Admin", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Akz", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Akz", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WohnLoc", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WohnLoc", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("AbteilungsKz", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AbteilungsKz", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `Nutzer` SET `VName` = ?, `NName` = ?, `NGeschl` = ?, `Nutzercol` = ?, `Admin` = ?, `Akz` = ? WHERE ((`NutzerID` = ?) AND ((? = 1 AND `VName` IS NULL) OR (`VName` = ?)) AND ((? = 1 AND `NName` IS NULL) OR (`NName` = ?)) AND ((? = 1 AND `NGeschl` IS NULL) OR (`NGeschl` = ?)) AND ((? = 1 AND `Nutzercol` IS NULL) OR (`Nutzercol` = ?)) AND ((? = 1 AND `Admin` IS NULL) OR (`Admin` = ?)) AND ((? = 1 AND `Akz` IS NULL) OR (`Akz` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `Nutzer` SET `VName` = ?, `NName` = ?, `NGeschl` = ?, `Admin` = ?, `Akz` = ?, `WohnLoc` = ?, `AbteilungsKz` = ? WHERE ((`NutzerID` = ?) AND ((? = 1 AND `VName` IS NULL) OR (`VName` = ?)) AND ((? = 1 AND `NName` IS NULL) OR (`NName` = ?)) AND ((? = 1 AND `NGeschl` IS NULL) OR (`NGeschl` = ?)) AND ((? = 1 AND `Admin` IS NULL) OR (`Admin` = ?)) AND ((? = 1 AND `Akz` IS NULL) OR (`Akz` = ?)) AND ((? = 1 AND `WohnLoc` IS NULL) OR (`WohnLoc` = ?)) AND ((? = 1 AND `AbteilungsKz` IS NULL) OR (`AbteilungsKz` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("VName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VName", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("NName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NName", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("NGeschl", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NGeschl", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Nutzercol", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nutzercol", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Admin", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Admin", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Akz", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Akz", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WohnLoc", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WohnLoc", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("AbteilungsKz", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AbteilungsKz", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_NutzerID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NutzerID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_VName", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VName", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_VName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VName", global::System.Data.DataRowVersion.Original, false, null));
@@ -8559,12 +8577,14 @@ namespace BOM.dbDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_NName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NName", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_NGeschl", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NGeschl", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_NGeschl", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "NGeschl", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Nutzercol", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nutzercol", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Nutzercol", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nutzercol", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Admin", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Admin", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Admin", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Admin", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Akz", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Akz", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Akz", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Akz", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_WohnLoc", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WohnLoc", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WohnLoc", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WohnLoc", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_AbteilungsKz", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AbteilungsKz", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_AbteilungsKz", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AbteilungsKz", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8580,7 +8600,8 @@ namespace BOM.dbDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT NutzerID, VName, NName, NGeschl, Nutzercol, Admin, Akz FROM Nutzer";
+            this._commandCollection[0].CommandText = "SELECT NutzerID, VName, NName, NGeschl, Admin, Akz, WohnLoc, AbteilungsKz FROM Nu" +
+                "tzer";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -8641,7 +8662,7 @@ namespace BOM.dbDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_NutzerID, string Original_VName, string Original_NName, bool Original_NGeschl, string Original_Nutzercol, bool Original_Admin, string Original_Akz) {
+        public virtual int Delete(int Original_NutzerID, string Original_VName, string Original_NName, bool Original_NGeschl, bool Original_Admin, string Original_Akz, global::System.Nullable<int> Original_WohnLoc, string Original_AbteilungsKz) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_NutzerID));
             if ((Original_VName == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
@@ -8661,23 +8682,31 @@ namespace BOM.dbDataSetTableAdapters {
             }
             this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
             this.Adapter.DeleteCommand.Parameters[6].Value = ((bool)(Original_NGeschl));
-            if ((Original_Nutzercol == null)) {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((bool)(Original_Admin));
+            if ((Original_Akz == null)) {
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((string)(Original_Nutzercol));
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_Akz));
             }
-            this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[10].Value = ((bool)(Original_Admin));
-            if ((Original_Akz == null)) {
+            if ((Original_WohnLoc.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((int)(Original_WohnLoc.Value));
+            }
+            else {
                 this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
+            if ((Original_AbteilungsKz == null)) {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
             else {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((string)(Original_Akz));
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((string)(Original_AbteilungsKz));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -8699,7 +8728,7 @@ namespace BOM.dbDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string VName, string NName, bool NGeschl, string Nutzercol, bool Admin, string Akz) {
+        public virtual int Insert(string VName, string NName, bool NGeschl, bool Admin, string Akz, global::System.Nullable<int> WohnLoc, string AbteilungsKz) {
             if ((VName == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -8713,18 +8742,24 @@ namespace BOM.dbDataSetTableAdapters {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(NName));
             }
             this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(NGeschl));
-            if ((Nutzercol == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            this.Adapter.InsertCommand.Parameters[3].Value = ((bool)(Admin));
+            if ((Akz == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Nutzercol));
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(Akz));
             }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((bool)(Admin));
-            if ((Akz == null)) {
+            if ((WohnLoc.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(WohnLoc.Value));
+            }
+            else {
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
+            if ((AbteilungsKz == null)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
             else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(Akz));
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(AbteilungsKz));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -8746,7 +8781,7 @@ namespace BOM.dbDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string VName, string NName, bool NGeschl, string Nutzercol, bool Admin, string Akz, int Original_NutzerID, string Original_VName, string Original_NName, bool Original_NGeschl, string Original_Nutzercol, bool Original_Admin, string Original_Akz) {
+        public virtual int Update(string VName, string NName, bool NGeschl, bool Admin, string Akz, global::System.Nullable<int> WohnLoc, string AbteilungsKz, int Original_NutzerID, string Original_VName, string Original_NName, bool Original_NGeschl, bool Original_Admin, string Original_Akz, global::System.Nullable<int> Original_WohnLoc, string Original_AbteilungsKz) {
             if ((VName == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -8760,55 +8795,69 @@ namespace BOM.dbDataSetTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(NName));
             }
             this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(NGeschl));
-            if ((Nutzercol == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(Admin));
+            if ((Akz == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Nutzercol));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Akz));
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((bool)(Admin));
-            if ((Akz == null)) {
+            if ((WohnLoc.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(WohnLoc.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Akz));
+            if ((AbteilungsKz == null)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_NutzerID));
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(AbteilungsKz));
+            }
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_NutzerID));
             if ((Original_VName == null)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_VName));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_VName));
             }
             if ((Original_NName == null)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_NName));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(Original_NName));
             }
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[12].Value = ((bool)(Original_NGeschl));
-            if ((Original_Nutzercol == null)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_Nutzercol));
-            }
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((bool)(Original_Admin));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((bool)(Original_NGeschl));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(Original_Admin));
             if ((Original_Akz == null)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((string)(Original_Akz));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((string)(Original_Akz));
+            }
+            if ((Original_WohnLoc.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(Original_WohnLoc.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+            }
+            if ((Original_AbteilungsKz == null)) {
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((string)(Original_AbteilungsKz));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 

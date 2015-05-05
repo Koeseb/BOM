@@ -5,35 +5,81 @@ using System.Text;
 using System.Data;
 using System.Data.Common;
 using System.Data.OleDb;
+using System.Windows.Forms;
 
 namespace BOM
 {
     public class DBase
     {
-        OleDbConnection con { get; set; }
-        OleDbCommand cmd { get; set; }
+        public OleDbConnection con { get; set; }
+        public OleDbCommand cmd { get; set; }
+        public OleDbDataReader reader { get; set; }
 
         public DBase()
         {
             con = new OleDbConnection(Properties.Settings.Default.dbConnectionString);
         }
 
-        public void select(string query)
+        public OleDbDataReader select(string query)
         {
             cmd = new OleDbCommand(query, con);
 
-            con.Open();
-
-            OleDbDataReader reader;
-            reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                Console.Write(reader.GetString(0).ToString());
-            }
+                con.Open();
+                reader = cmd.ExecuteReader();
 
-            reader.Close();
-            con.Close();
+                // just return the reader as the data source
+                return reader;
+            }
+            catch (OleDbException ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return null;
+            }
+            finally
+            {
+                reader.Close();
+                con.Close();
+            }
+        }
+
+        public void insert(string query)
+        {
+            con.Open();
+            cmd = new OleDbCommand(query, con);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (OleDbException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void update(string query)
+        {
+            con.Open();
+            cmd = new OleDbCommand(query, con);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (OleDbException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                con.Close();
+            }
         }
     }
 }

@@ -7,3 +7,4 @@
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.exe
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.pdb
 \\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\bin\Debug\BOM.exe.config
+\\psf\Home\Documents\workspace\Projects\BOM\BOM\BOM\obj\x86\Debug\BOM.csprojResolveAssemblyReference.cache
