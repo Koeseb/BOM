@@ -34,7 +34,7 @@ namespace BOM
 
             if (input_nutzerName.Text.Length >= 3 && input_pwd.Text.Length >= 6 && input_nutzerName.Text.Contains('.'))
             {
-                loginSuccessful = login(input_nutzerName.Text, input_pwd.Text);   
+                loginSuccessful = login(input_nutzerName.Text, input_pwd.Text);
             } else if (input_nutzerName.Text == string.Empty && input_pwd.Text == string.Empty) {
                 MessageBox.Show("Bitte fuellen Sie alle Felder mit Daten.");
             } else if(input_nutzerName.Text.Length < 3){
@@ -54,35 +54,31 @@ namespace BOM
             }
             else
             {
-                MessageBox.Show("Falsche Eingaben.");
-                input_nutzerName.Text = string.Empty;
+                //input_nutzerName.Text = string.Empty;
                 input_pwd.Text = string.Empty;
+                MessageBox.Show("Falsche Eingaben.");
             }
         }
 
         bool login(string nn, string pwd)
         {
-            var con = new OleDbConnection(Properties.Settings.Default.dbConnectionString);
-            var cmd = new OleDbCommand(("SELECT Pwd FROM NUTZER WHERE LCASE(VName) = '" + nn.Split('.')[0] + "' AND LCASE(NName) = '" + nn.Split('.')[1] + "';"), con);
-            con.Open();
-            var reader = cmd.ExecuteReader();
-
+            DbManager.Connection = new OleDbConnection(Properties.Settings.Default.dbConnectionString);
+            DbManager.SQLQuery = "SELECT Pwd FROM NUTZER WHERE LCASE(VName) = '" + input_nutzerName.Text.Split('.')[0] + "' AND LCASE(NName) = '" + input_nutzerName.Text.Split('.')[1] + "';";
+            DbManager.Command = new OleDbCommand(DbManager.SQLQuery, DbManager.Connection);
+            DbManager.Connection.Open();
+            var reader = DbManager.Command.ExecuteReader();
             while (reader.Read())
             {
-                if (reader.GetValue(0).ToString() == pwd.ToString())
+                if (reader.GetValue(0).ToString() == input_pwd.Text.ToString())
                 {
                     reader.Close();
-                    con.Close();
+                    DbManager.Connection.Close();
                     return true;
-                }
-                else
-                {
-                    MessageBox.Show("Das eingegebene Passwort ist nicht korrekt.");
                 }
             }
 
             reader.Close();
-            con.Close();
+            DbManager.Connection.Close();
             return false;
         }
     }
