@@ -8,39 +8,39 @@ namespace BOM
 {
     static class DbManager
     {   
-        static OleDbConnection con;
-        static OleDbCommand cmd;
-        static string query;
+        static OleDbConnection _con;
+        static OleDbCommand _cmd;
+        static string _query;
         
         public static OleDbConnection Connection{
             get{
-                return con;
+                return _con;
             }
             set{
-                con = value;    
+                _con = value;    
             }
         }
         
         public static OleDbCommand Command{
             get{
-                return cmd;
+                return _cmd;
             }
             set{
-                cmd = value;
+                _cmd = value;
             }
         }
         
         public static string SQLQuery{
             get{
-                return query;
+                return _query;
             }
             set{
-                query = value;
+                _query = value;
             }
         }
         
         public static void setSQLQuery(string q){
-            query = q;
+            _query = q;
         }
 
         public static void executeQuery(out object dbo)

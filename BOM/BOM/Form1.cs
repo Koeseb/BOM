@@ -63,7 +63,7 @@ namespace BOM
         bool login(string nn, string pwd)
         {
             DbManager.Connection = new OleDbConnection(Properties.Settings.Default.dbConnectionString);
-            DbManager.SQLQuery = "SELECT Pwd FROM NUTZER WHERE LCASE(VName) = '" + input_nutzerName.Text.Split('.')[0] + "' AND LCASE(NName) = '" + input_nutzerName.Text.Split('.')[1] + "';";
+            DbManager.SQLQuery = "SELECT Pwd, NutzerID FROM NUTZER WHERE LCASE(VName) = '" + input_nutzerName.Text.Split('.')[0] + "' AND LCASE(NName) = '" + input_nutzerName.Text.Split('.')[1] + "';";
             DbManager.Command = new OleDbCommand(DbManager.SQLQuery, DbManager.Connection);
             DbManager.Connection.Open();
             var reader = DbManager.Command.ExecuteReader();
@@ -71,15 +71,23 @@ namespace BOM
             {
                 if (reader.GetValue(0).ToString() == input_pwd.Text.ToString())
                 {
+                    // store user data
+                    UData.Uname = input_nutzerName.Text;
+                    UData.UID = int.Parse(reader.GetValue(1).ToString());
+
                     reader.Close();
                     DbManager.Connection.Close();
                     return true;
                 }
             }
-
             reader.Close();
             DbManager.Connection.Close();
             return false;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
