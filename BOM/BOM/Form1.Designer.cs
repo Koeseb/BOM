@@ -56,6 +56,7 @@
             // 
             this.input_pwd.Location = new System.Drawing.Point(106, 83);
             this.input_pwd.Name = "input_pwd";
+            this.input_pwd.PasswordChar = '*';
             this.input_pwd.Size = new System.Drawing.Size(180, 20);
             this.input_pwd.TabIndex = 2;
             // 
@@ -92,6 +93,7 @@
             this.Controls.Add(this.input_nutzerName);
             this.Name = "Form1";
             this.Text = "BOM";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
