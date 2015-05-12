@@ -34,9 +34,13 @@
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.ActivityPage = new System.Windows.Forms.TabPage();
+            this.button_Refresh = new System.Windows.Forms.Button();
             this.Label_Activities = new System.Windows.Forms.Label();
             this.ListBox_ActivityList = new System.Windows.Forms.ListBox();
             this.BuchungsPage = new System.Windows.Forms.TabPage();
+            this.label_Betrag = new System.Windows.Forms.Label();
+            this.input_Betrag = new System.Windows.Forms.TextBox();
+            this.label_Beschreibung = new System.Windows.Forms.Label();
             this.comboBox_USt = new System.Windows.Forms.ComboBox();
             this.button_Book = new System.Windows.Forms.Button();
             this.input_Beschreibung = new System.Windows.Forms.TextBox();
@@ -58,7 +62,8 @@
             this.dbDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.logBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.logTableAdapter = new BOM.dbDataSetTableAdapters.LogTableAdapter();
-            this.button_Refresh = new System.Windows.Forms.Button();
+            this.radioButton_Ausgangsrechnung = new System.Windows.Forms.RadioButton();
+            this.radioButton_Eingangsrechnung = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.ActivityPage.SuspendLayout();
@@ -115,6 +120,16 @@
             this.ActivityPage.Text = "Aktivitaeten";
             this.ActivityPage.UseVisualStyleBackColor = true;
             // 
+            // button_Refresh
+            // 
+            this.button_Refresh.Location = new System.Drawing.Point(628, 9);
+            this.button_Refresh.Name = "button_Refresh";
+            this.button_Refresh.Size = new System.Drawing.Size(54, 37);
+            this.button_Refresh.TabIndex = 2;
+            this.button_Refresh.Text = "Refresh";
+            this.button_Refresh.UseVisualStyleBackColor = true;
+            this.button_Refresh.Click += new System.EventHandler(this.button_Refresh_Click);
+            // 
             // Label_Activities
             // 
             this.Label_Activities.AutoSize = true;
@@ -137,6 +152,11 @@
             // 
             // BuchungsPage
             // 
+            this.BuchungsPage.Controls.Add(this.radioButton_Eingangsrechnung);
+            this.BuchungsPage.Controls.Add(this.radioButton_Ausgangsrechnung);
+            this.BuchungsPage.Controls.Add(this.label_Betrag);
+            this.BuchungsPage.Controls.Add(this.input_Betrag);
+            this.BuchungsPage.Controls.Add(this.label_Beschreibung);
             this.BuchungsPage.Controls.Add(this.comboBox_USt);
             this.BuchungsPage.Controls.Add(this.button_Book);
             this.BuchungsPage.Controls.Add(this.input_Beschreibung);
@@ -154,10 +174,35 @@
             this.BuchungsPage.Text = "Buchungen";
             this.BuchungsPage.UseVisualStyleBackColor = true;
             // 
+            // label_Betrag
+            // 
+            this.label_Betrag.AutoSize = true;
+            this.label_Betrag.Location = new System.Drawing.Point(17, 235);
+            this.label_Betrag.Name = "label_Betrag";
+            this.label_Betrag.Size = new System.Drawing.Size(38, 13);
+            this.label_Betrag.TabIndex = 13;
+            this.label_Betrag.Text = "Betrag";
+            // 
+            // input_Betrag
+            // 
+            this.input_Betrag.Location = new System.Drawing.Point(17, 252);
+            this.input_Betrag.Name = "input_Betrag";
+            this.input_Betrag.Size = new System.Drawing.Size(200, 20);
+            this.input_Betrag.TabIndex = 12;
+            // 
+            // label_Beschreibung
+            // 
+            this.label_Beschreibung.AutoSize = true;
+            this.label_Beschreibung.Location = new System.Drawing.Point(308, 25);
+            this.label_Beschreibung.Name = "label_Beschreibung";
+            this.label_Beschreibung.Size = new System.Drawing.Size(72, 13);
+            this.label_Beschreibung.TabIndex = 11;
+            this.label_Beschreibung.Text = "Beschreibung";
+            // 
             // comboBox_USt
             // 
             this.comboBox_USt.FormattingEnabled = true;
-            this.comboBox_USt.Location = new System.Drawing.Point(17, 207);
+            this.comboBox_USt.Location = new System.Drawing.Point(17, 202);
             this.comboBox_USt.Name = "comboBox_USt";
             this.comboBox_USt.Size = new System.Drawing.Size(200, 21);
             this.comboBox_USt.TabIndex = 10;
@@ -183,7 +228,7 @@
             // label_USt
             // 
             this.label_USt.AutoSize = true;
-            this.label_USt.Location = new System.Drawing.Point(14, 190);
+            this.label_USt.Location = new System.Drawing.Point(14, 185);
             this.label_USt.Name = "label_USt";
             this.label_USt.Size = new System.Drawing.Size(25, 13);
             this.label_USt.TabIndex = 6;
@@ -319,15 +364,27 @@
             // 
             this.logTableAdapter.ClearBeforeFill = true;
             // 
-            // button_Refresh
+            // radioButton_Ausgangsrechnung
             // 
-            this.button_Refresh.Location = new System.Drawing.Point(628, 9);
-            this.button_Refresh.Name = "button_Refresh";
-            this.button_Refresh.Size = new System.Drawing.Size(54, 37);
-            this.button_Refresh.TabIndex = 2;
-            this.button_Refresh.Text = "Refresh";
-            this.button_Refresh.UseVisualStyleBackColor = true;
-            this.button_Refresh.Click += new System.EventHandler(this.button_Refresh_Click);
+            this.radioButton_Ausgangsrechnung.AutoSize = true;
+            this.radioButton_Ausgangsrechnung.Location = new System.Drawing.Point(244, 252);
+            this.radioButton_Ausgangsrechnung.Name = "radioButton_Ausgangsrechnung";
+            this.radioButton_Ausgangsrechnung.Size = new System.Drawing.Size(117, 17);
+            this.radioButton_Ausgangsrechnung.TabIndex = 14;
+            this.radioButton_Ausgangsrechnung.TabStop = true;
+            this.radioButton_Ausgangsrechnung.Text = "Ausgangsrechnung";
+            this.radioButton_Ausgangsrechnung.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_Eingangsrechnung
+            // 
+            this.radioButton_Eingangsrechnung.AutoSize = true;
+            this.radioButton_Eingangsrechnung.Location = new System.Drawing.Point(376, 252);
+            this.radioButton_Eingangsrechnung.Name = "radioButton_Eingangsrechnung";
+            this.radioButton_Eingangsrechnung.Size = new System.Drawing.Size(114, 17);
+            this.radioButton_Eingangsrechnung.TabIndex = 15;
+            this.radioButton_Eingangsrechnung.TabStop = true;
+            this.radioButton_Eingangsrechnung.Text = "Eingangsrechnung";
+            this.radioButton_Eingangsrechnung.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
@@ -389,5 +446,10 @@
         private System.Windows.Forms.BindingSource logBindingSource;
         private dbDataSetTableAdapters.LogTableAdapter logTableAdapter;
         private System.Windows.Forms.Button button_Refresh;
+        private System.Windows.Forms.Label label_Beschreibung;
+        private System.Windows.Forms.Label label_Betrag;
+        private System.Windows.Forms.TextBox input_Betrag;
+        private System.Windows.Forms.RadioButton radioButton_Eingangsrechnung;
+        private System.Windows.Forms.RadioButton radioButton_Ausgangsrechnung;
     }
 }

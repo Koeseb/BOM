@@ -33,7 +33,16 @@ namespace BOM
         private void button_Book_Click(object sender, EventArgs e)
         {
             Thread bookThread = new Thread(new ThreadStart(book));
-            bookThread.Start();
+            double n;
+            bool isNumeric = double.TryParse(input_Betrag.Text, out n);
+            if (isNumeric)
+            {
+                bookThread.Start();
+            }
+            else
+            {
+                MessageBox.Show("Der eingegebene Betrag ist keine Zahl!");
+            }
         }
 
         private void book()
@@ -43,6 +52,7 @@ namespace BOM
             double betriebsAnteil = 0;
             int USt = 0;
             string beschreibung = string.Empty;
+            string rechnungsart = string.Empty;
 
             /*
              * need invoking because the method will be called in a new thread
@@ -74,7 +84,7 @@ namespace BOM
                 input_Beschreibung.Invoke(new MethodInvoker(delegate { beschreibung = input_Beschreibung.Text; }));
             }
 
-            DbManager.SQLQuery = "INSERT INTO BUCHUNG (Rechnungsdatum, Buchungsdatum, Betriebsanteil, UST, ErstellerID, Beschreibung) VALUES (@RD, @BD, @BA, @UST, @EID, @BES);";
+            DbManager.SQLQuery = "INSERT INTO BUCHUNG (Rechnungsdatum, Buchungsdatum, Betriebsanteil, UST, ErstellerID, Beschreibung, RechnungsArt, Betrag, GruppenID) VALUES (@RD, @BD, @BA, @UST, @EID, @BES, @RA, @BT, @GID);";
             DbManager.Command.CommandText = DbManager.SQLQuery;
             DbManager.Command.Parameters.AddWithValue("@RD", rechnungsDatum);
             DbManager.Command.Parameters.AddWithValue("@BD", buchungsDatum);
@@ -82,6 +92,7 @@ namespace BOM
             DbManager.Command.Parameters.AddWithValue("@UST", USt);
             DbManager.Command.Parameters.AddWithValue("@EID", UData.UID);
             DbManager.Command.Parameters.AddWithValue("@BES", beschreibung);
+            //DbManager.Command.Parameters.AddWithValue("@RA", );
 
             try
             {
