@@ -38,6 +38,8 @@
             this.Label_Activities = new System.Windows.Forms.Label();
             this.ListBox_ActivityList = new System.Windows.Forms.ListBox();
             this.BuchungsPage = new System.Windows.Forms.TabPage();
+            this.radioButton_Eingangsrechnung = new System.Windows.Forms.RadioButton();
+            this.radioButton_Ausgangsrechnung = new System.Windows.Forms.RadioButton();
             this.label_Betrag = new System.Windows.Forms.Label();
             this.input_Betrag = new System.Windows.Forms.TextBox();
             this.label_Beschreibung = new System.Windows.Forms.Label();
@@ -62,8 +64,8 @@
             this.dbDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.logBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.logTableAdapter = new BOM.dbDataSetTableAdapters.LogTableAdapter();
-            this.radioButton_Ausgangsrechnung = new System.Windows.Forms.RadioButton();
-            this.radioButton_Eingangsrechnung = new System.Windows.Forms.RadioButton();
+            this.comboBox_GruppenWahl = new System.Windows.Forms.ComboBox();
+            this.label_GruppenWahl = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.ActivityPage.SuspendLayout();
@@ -152,6 +154,8 @@
             // 
             // BuchungsPage
             // 
+            this.BuchungsPage.Controls.Add(this.label_GruppenWahl);
+            this.BuchungsPage.Controls.Add(this.comboBox_GruppenWahl);
             this.BuchungsPage.Controls.Add(this.radioButton_Eingangsrechnung);
             this.BuchungsPage.Controls.Add(this.radioButton_Ausgangsrechnung);
             this.BuchungsPage.Controls.Add(this.label_Betrag);
@@ -173,6 +177,28 @@
             this.BuchungsPage.TabIndex = 1;
             this.BuchungsPage.Text = "Buchungen";
             this.BuchungsPage.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_Eingangsrechnung
+            // 
+            this.radioButton_Eingangsrechnung.AutoSize = true;
+            this.radioButton_Eingangsrechnung.Location = new System.Drawing.Point(376, 252);
+            this.radioButton_Eingangsrechnung.Name = "radioButton_Eingangsrechnung";
+            this.radioButton_Eingangsrechnung.Size = new System.Drawing.Size(114, 17);
+            this.radioButton_Eingangsrechnung.TabIndex = 15;
+            this.radioButton_Eingangsrechnung.TabStop = true;
+            this.radioButton_Eingangsrechnung.Text = "Eingangsrechnung";
+            this.radioButton_Eingangsrechnung.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_Ausgangsrechnung
+            // 
+            this.radioButton_Ausgangsrechnung.AutoSize = true;
+            this.radioButton_Ausgangsrechnung.Location = new System.Drawing.Point(244, 252);
+            this.radioButton_Ausgangsrechnung.Name = "radioButton_Ausgangsrechnung";
+            this.radioButton_Ausgangsrechnung.Size = new System.Drawing.Size(117, 17);
+            this.radioButton_Ausgangsrechnung.TabIndex = 14;
+            this.radioButton_Ausgangsrechnung.TabStop = true;
+            this.radioButton_Ausgangsrechnung.Text = "Ausgangsrechnung";
+            this.radioButton_Ausgangsrechnung.UseVisualStyleBackColor = true;
             // 
             // label_Betrag
             // 
@@ -222,7 +248,7 @@
             this.input_Beschreibung.Location = new System.Drawing.Point(308, 41);
             this.input_Beschreibung.Multiline = true;
             this.input_Beschreibung.Name = "input_Beschreibung";
-            this.input_Beschreibung.Size = new System.Drawing.Size(352, 131);
+            this.input_Beschreibung.Size = new System.Drawing.Size(352, 91);
             this.input_Beschreibung.TabIndex = 8;
             // 
             // label_USt
@@ -364,27 +390,22 @@
             // 
             this.logTableAdapter.ClearBeforeFill = true;
             // 
-            // radioButton_Ausgangsrechnung
+            // comboBox_GruppenWahl
             // 
-            this.radioButton_Ausgangsrechnung.AutoSize = true;
-            this.radioButton_Ausgangsrechnung.Location = new System.Drawing.Point(244, 252);
-            this.radioButton_Ausgangsrechnung.Name = "radioButton_Ausgangsrechnung";
-            this.radioButton_Ausgangsrechnung.Size = new System.Drawing.Size(117, 17);
-            this.radioButton_Ausgangsrechnung.TabIndex = 14;
-            this.radioButton_Ausgangsrechnung.TabStop = true;
-            this.radioButton_Ausgangsrechnung.Text = "Ausgangsrechnung";
-            this.radioButton_Ausgangsrechnung.UseVisualStyleBackColor = true;
+            this.comboBox_GruppenWahl.FormattingEnabled = true;
+            this.comboBox_GruppenWahl.Location = new System.Drawing.Point(429, 177);
+            this.comboBox_GruppenWahl.Name = "comboBox_GruppenWahl";
+            this.comboBox_GruppenWahl.Size = new System.Drawing.Size(231, 21);
+            this.comboBox_GruppenWahl.TabIndex = 16;
             // 
-            // radioButton_Eingangsrechnung
+            // label_GruppenWahl
             // 
-            this.radioButton_Eingangsrechnung.AutoSize = true;
-            this.radioButton_Eingangsrechnung.Location = new System.Drawing.Point(376, 252);
-            this.radioButton_Eingangsrechnung.Name = "radioButton_Eingangsrechnung";
-            this.radioButton_Eingangsrechnung.Size = new System.Drawing.Size(114, 17);
-            this.radioButton_Eingangsrechnung.TabIndex = 15;
-            this.radioButton_Eingangsrechnung.TabStop = true;
-            this.radioButton_Eingangsrechnung.Text = "Eingangsrechnung";
-            this.radioButton_Eingangsrechnung.UseVisualStyleBackColor = true;
+            this.label_GruppenWahl.AutoSize = true;
+            this.label_GruppenWahl.Location = new System.Drawing.Point(426, 159);
+            this.label_GruppenWahl.Name = "label_GruppenWahl";
+            this.label_GruppenWahl.Size = new System.Drawing.Size(88, 13);
+            this.label_GruppenWahl.TabIndex = 17;
+            this.label_GruppenWahl.Text = "Buchungsgruppe";
             // 
             // Main
             // 
@@ -451,5 +472,7 @@
         private System.Windows.Forms.TextBox input_Betrag;
         private System.Windows.Forms.RadioButton radioButton_Eingangsrechnung;
         private System.Windows.Forms.RadioButton radioButton_Ausgangsrechnung;
+        private System.Windows.Forms.Label label_GruppenWahl;
+        private System.Windows.Forms.ComboBox comboBox_GruppenWahl;
     }
 }

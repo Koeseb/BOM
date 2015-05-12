@@ -13,6 +13,8 @@ namespace BOM
 {
     public partial class Main : Form
     {
+        string _rechnungsArt;
+
         public Main()
         {
             InitializeComponent();
@@ -27,12 +29,22 @@ namespace BOM
             comboBox_USt.Items.Add("20%");
             comboBox_USt.SelectedIndex = 2;
 
-            fillActivityList();   
+            fillActivityList();
+            fillGroupComboBox();
         }
 
         private void button_Book_Click(object sender, EventArgs e)
         {
             Thread bookThread = new Thread(new ThreadStart(book));
+
+            if (radioButton_Ausgangsrechnung.Checked)
+            {
+                _rechnungsArt = "AR";
+            }
+            else if (radioButton_Eingangsrechnung.Checked)
+            {
+                _rechnungsArt = "ER";
+            }
             double n;
             bool isNumeric = double.TryParse(input_Betrag.Text, out n);
             if (isNumeric)
@@ -52,7 +64,8 @@ namespace BOM
             double betriebsAnteil = 0;
             int USt = 0;
             string beschreibung = string.Empty;
-            string rechnungsart = string.Empty;
+            double betrag = 0;
+            int gruppe = 0;
 
             /*
              * need invoking because the method will be called in a new thread
@@ -84,7 +97,17 @@ namespace BOM
                 input_Beschreibung.Invoke(new MethodInvoker(delegate { beschreibung = input_Beschreibung.Text; }));
             }
 
-            DbManager.SQLQuery = "INSERT INTO BUCHUNG (Rechnungsdatum, Buchungsdatum, Betriebsanteil, UST, ErstellerID, Beschreibung, RechnungsArt, Betrag, GruppenID) VALUES (@RD, @BD, @BA, @UST, @EID, @BES, @RA, @BT, @GID);";
+            if (input_Betrag.InvokeRequired)
+            {
+                input_Betrag.Invoke(new MethodInvoker(delegate { betrag = double.Parse(input_Betrag.Text); }));
+            }
+
+            if (comboBox_GruppenWahl.InvokeRequired)
+            {
+                comboBox_GruppenWahl.Invoke(new MethodInvoker(delegate { gruppe = int.Parse(comboBox_GruppenWahl.Text.Split(' ')[0]); }));
+            }
+
+            DbManager.SQLQuery = "INSERT INTO BUCHUNG (Rechnungsdatum, Buchungsdatum, Betriebsanteil, UST, ErstellerID, Beschreibung, RechnungsArt, Betrag, GID) VALUES (@RD, @BD, @BA, @UST, @EID, @BES, @RA, @BT, @GID);";
             DbManager.Command.CommandText = DbManager.SQLQuery;
             DbManager.Command.Parameters.AddWithValue("@RD", rechnungsDatum);
             DbManager.Command.Parameters.AddWithValue("@BD", buchungsDatum);
@@ -92,7 +115,9 @@ namespace BOM
             DbManager.Command.Parameters.AddWithValue("@UST", USt);
             DbManager.Command.Parameters.AddWithValue("@EID", UData.UID);
             DbManager.Command.Parameters.AddWithValue("@BES", beschreibung);
-            //DbManager.Command.Parameters.AddWithValue("@RA", );
+            DbManager.Command.Parameters.AddWithValue("@RA", _rechnungsArt);
+            DbManager.Command.Parameters.AddWithValue("@BT", betrag);
+            DbManager.Command.Parameters.AddWithValue("@GID", gruppe);
 
             try
             {
@@ -154,6 +179,38 @@ namespace BOM
                         ": " +
                         reader.GetValue(1).ToString());
                 }
+
+                reader.Close();
+            }
+            catch (OleDbException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                DbManager.Connection.Close();
+            }
+        }
+
+        private void fillGroupComboBox()
+        {
+            DbManager.SQLQuery = "SELECT * FROM Gruppe;";
+            DbManager.Command.CommandText = DbManager.SQLQuery;
+
+            try
+            {
+                DbManager.Connection.Open();
+                var reader = DbManager.Command.ExecuteReader();
+                while (reader.Read())
+                {
+                    comboBox_GruppenWahl.Items.Add(reader.GetValue(0).ToString() + " " + reader.GetValue(1).ToString());
+                }
+
+                comboBox_GruppenWahl.SelectedIndex = 0;
 
                 reader.Close();
             }
