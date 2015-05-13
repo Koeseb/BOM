@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.Data.OleDb;
+using System.Globalization;
 
 namespace BOM
 {
@@ -22,8 +23,6 @@ namespace BOM
 
         private void Main_Load(object sender, EventArgs e)
         {
-            // TODO: Diese Codezeile lädt Daten in die Tabelle "dbDataSet.Log". Sie können sie bei Bedarf verschieben oder entfernen.
-            this.logTableAdapter.Fill(this.dbDataSet.Log);
             comboBox_USt.Items.Add("0%");
             comboBox_USt.Items.Add("10%");
             comboBox_USt.Items.Add("20%");
@@ -59,8 +58,8 @@ namespace BOM
 
         private void book()
         {
-            string rechnungsDatum = string.Empty;
-            string buchungsDatum = string.Empty;
+            DateTime rechnungsDatum = DateTime.Now;
+            DateTime buchungsDatum = DateTime.Now;
             double betriebsAnteil = 0;
             int USt = 0;
             string beschreibung = string.Empty;
@@ -74,12 +73,12 @@ namespace BOM
              */
             if (dateTime_Rechnungsdatum.InvokeRequired)
             {
-                dateTime_Rechnungsdatum.Invoke(new MethodInvoker(delegate { rechnungsDatum = dateTime_Rechnungsdatum.Text; }));
+                dateTime_Rechnungsdatum.Invoke(new MethodInvoker(delegate { rechnungsDatum = DateTime.Parse(dateTime_Rechnungsdatum.Text); }));
             }
 
             if (dateTime_Buchungsdatum.InvokeRequired)
             {
-                dateTime_Buchungsdatum.Invoke(new MethodInvoker(delegate { buchungsDatum = dateTime_Buchungsdatum.Text; }));
+                dateTime_Buchungsdatum.Invoke(new MethodInvoker(delegate { buchungsDatum = DateTime.Parse(dateTime_Buchungsdatum.Text); }));
             }
 
             if (input_Betriebsanteil.InvokeRequired)
@@ -132,11 +131,12 @@ namespace BOM
                 DbManager.SQLQuery = "SELECT BelegNR FROM BUCHUNG WHERE BelegNR = (SELECT MAX(BelegNR) FROM BUCHUNG);";
                 DbManager.Command.CommandText = DbManager.SQLQuery;
                 var reader = DbManager.Command.ExecuteReader();
-                while(reader.Read()){
+                while (reader.Read())
+                {
                     id = int.Parse(reader.GetValue(0).ToString());
                 }
                 reader.Close();
-                
+
                 // insert into log
                 DbManager.SQLQuery = "INSERT INTO LOG (Beschreibung, Typ, ID_Vorgang) VALUES(@BES, 'Buchung', @IDV);";
                 DbManager.Command.CommandText = DbManager.SQLQuery;
@@ -144,7 +144,7 @@ namespace BOM
                 DbManager.Command.Parameters.AddWithValue("@IDV", id);
                 DbManager.Command.ExecuteNonQuery();
                 DbManager.Command.Parameters.Clear();
-                
+
                 MessageBox.Show("Buchung wurde durchgefuehrt.");
             }
             catch (OleDbException ex)
@@ -161,9 +161,14 @@ namespace BOM
             }
         }
 
+        private string getSQLDate(DateTime dt)
+        {
+            return "#" + dt.ToString("d", new CultureInfo("en-US")) + "#";
+        }
+
         private void fillActivityList()
         {
-            ListBox_ActivityList.Items.Clear();
+            listBox_ActivityList.Items.Clear();
             DbManager.SQLQuery = "SELECT * FROM LOG;";
             DbManager.Command.CommandText = DbManager.SQLQuery;
             try
@@ -172,7 +177,7 @@ namespace BOM
                 var reader = DbManager.Command.ExecuteReader();
                 while (reader.Read())
                 {
-                    ListBox_ActivityList.Items.Add(
+                    listBox_ActivityList.Items.Add(
                         reader.GetValue(2).ToString() +
                         " " +
                         reader.GetValue(3).ToString() +

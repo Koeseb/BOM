@@ -3,14 +3,14 @@
     partial class Form1
     {
         /// <summary>
-        /// Erforderliche Designervariable.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Verwendete Ressourcen bereinigen.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,11 +20,11 @@
             base.Dispose(disposing);
         }
 
-        #region Vom Windows Form-Designer generierter Code
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// Erforderliche Methode für die Designerunterstützung.
-        /// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -37,16 +37,16 @@
             // 
             // input_nutzerName
             // 
-            this.input_nutzerName.Location = new System.Drawing.Point(106, 34);
+            this.input_nutzerName.Location = new System.Drawing.Point(112, 33);
             this.input_nutzerName.Name = "input_nutzerName";
-            this.input_nutzerName.Size = new System.Drawing.Size(180, 20);
+            this.input_nutzerName.Size = new System.Drawing.Size(169, 20);
             this.input_nutzerName.TabIndex = 0;
             // 
             // label_nutzerName
             // 
             this.label_nutzerName.AutoSize = true;
             this.label_nutzerName.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_nutzerName.Location = new System.Drawing.Point(3, 31);
+            this.label_nutzerName.Location = new System.Drawing.Point(9, 30);
             this.label_nutzerName.Name = "label_nutzerName";
             this.label_nutzerName.Size = new System.Drawing.Size(97, 21);
             this.label_nutzerName.TabIndex = 1;
@@ -54,28 +54,27 @@
             // 
             // input_pwd
             // 
-            this.input_pwd.Location = new System.Drawing.Point(106, 83);
+            this.input_pwd.Location = new System.Drawing.Point(112, 77);
             this.input_pwd.Name = "input_pwd";
             this.input_pwd.PasswordChar = '*';
-            this.input_pwd.Size = new System.Drawing.Size(180, 20);
+            this.input_pwd.Size = new System.Drawing.Size(169, 20);
             this.input_pwd.TabIndex = 2;
             // 
             // label_pwd
             // 
             this.label_pwd.AutoSize = true;
             this.label_pwd.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_pwd.Location = new System.Drawing.Point(3, 82);
+            this.label_pwd.Location = new System.Drawing.Point(12, 74);
             this.label_pwd.Name = "label_pwd";
-            this.label_pwd.Size = new System.Drawing.Size(73, 21);
+            this.label_pwd.Size = new System.Drawing.Size(77, 21);
             this.label_pwd.TabIndex = 3;
-            this.label_pwd.Text = "Passwort:";
+            this.label_pwd.Text = "Password:";
             // 
             // button_Anmelden
             // 
-            this.button_Anmelden.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Anmelden.Location = new System.Drawing.Point(123, 128);
+            this.button_Anmelden.Location = new System.Drawing.Point(94, 125);
             this.button_Anmelden.Name = "button_Anmelden";
-            this.button_Anmelden.Size = new System.Drawing.Size(84, 37);
+            this.button_Anmelden.Size = new System.Drawing.Size(116, 32);
             this.button_Anmelden.TabIndex = 4;
             this.button_Anmelden.Text = "Anmelden";
             this.button_Anmelden.UseVisualStyleBackColor = true;
@@ -85,7 +84,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(327, 177);
+            this.ClientSize = new System.Drawing.Size(319, 180);
             this.Controls.Add(this.button_Anmelden);
             this.Controls.Add(this.label_pwd);
             this.Controls.Add(this.input_pwd);
