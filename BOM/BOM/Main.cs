@@ -23,7 +23,7 @@ namespace BOM
         private void Main_Load(object sender, EventArgs e)
         {
             // TODO: Diese Codezeile lädt Daten in die Tabelle "dbDataSet.Log". Sie können sie bei Bedarf verschieben oder entfernen.
-            this.logTableAdapter.Fill(this.dbDataSet.Log);
+            //this.logTableAdapter.Fill(this.dbDataSet.Log);
             comboBox_USt.Items.Add("0%");
             comboBox_USt.Items.Add("10%");
             comboBox_USt.Items.Add("20%");
@@ -132,11 +132,12 @@ namespace BOM
                 DbManager.SQLQuery = "SELECT BelegNR FROM BUCHUNG WHERE BelegNR = (SELECT MAX(BelegNR) FROM BUCHUNG);";
                 DbManager.Command.CommandText = DbManager.SQLQuery;
                 var reader = DbManager.Command.ExecuteReader();
-                while(reader.Read()){
+                while (reader.Read())
+                {
                     id = int.Parse(reader.GetValue(0).ToString());
                 }
                 reader.Close();
-                
+
                 // insert into log
                 DbManager.SQLQuery = "INSERT INTO LOG (Beschreibung, Typ, ID_Vorgang) VALUES(@BES, 'Buchung', @IDV);";
                 DbManager.Command.CommandText = DbManager.SQLQuery;
@@ -144,7 +145,7 @@ namespace BOM
                 DbManager.Command.Parameters.AddWithValue("@IDV", id);
                 DbManager.Command.ExecuteNonQuery();
                 DbManager.Command.Parameters.Clear();
-                
+
                 MessageBox.Show("Buchung wurde durchgefuehrt.");
             }
             catch (OleDbException ex)
@@ -163,7 +164,7 @@ namespace BOM
 
         private void fillActivityList()
         {
-            ListBox_ActivityList.Items.Clear();
+            listBox_ActivityList.Items.Clear();
             DbManager.SQLQuery = "SELECT * FROM LOG;";
             DbManager.Command.CommandText = DbManager.SQLQuery;
             try
@@ -172,7 +173,7 @@ namespace BOM
                 var reader = DbManager.Command.ExecuteReader();
                 while (reader.Read())
                 {
-                    ListBox_ActivityList.Items.Add(
+                    listBox_ActivityList.Items.Add(
                         reader.GetValue(2).ToString() +
                         " " +
                         reader.GetValue(3).ToString() +

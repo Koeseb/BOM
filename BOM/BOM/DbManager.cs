@@ -7,39 +7,49 @@ using System.Data.OleDb;
 namespace BOM
 {
     static class DbManager
-    {   
+    {
         static OleDbConnection _con;
         static OleDbCommand _cmd;
         static string _query;
-        
-        public static OleDbConnection Connection{
-            get{
+
+        public static OleDbConnection Connection
+        {
+            get
+            {
                 return _con;
             }
-            set{
-                _con = value;    
+            set
+            {
+                _con = value;
             }
         }
-        
-        public static OleDbCommand Command{
-            get{
+
+        public static OleDbCommand Command
+        {
+            get
+            {
                 return _cmd;
             }
-            set{
+            set
+            {
                 _cmd = value;
             }
         }
-        
-        public static string SQLQuery{
-            get{
+
+        public static string SQLQuery
+        {
+            get
+            {
                 return _query;
             }
-            set{
+            set
+            {
                 _query = value;
             }
         }
-        
-        public static void setSQLQuery(string q){
+
+        public static void setSQLQuery(string q)
+        {
             _query = q;
         }
 

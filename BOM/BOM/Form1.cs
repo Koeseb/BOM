@@ -35,13 +35,21 @@ namespace BOM
             if (input_nutzerName.Text.Length >= 3 && input_pwd.Text.Length >= 6 && input_nutzerName.Text.Contains('.'))
             {
                 loginSuccessful = login(input_nutzerName.Text, input_pwd.Text);
-            } else if (input_nutzerName.Text == string.Empty && input_pwd.Text == string.Empty) {
+            }
+            else if (input_nutzerName.Text == string.Empty && input_pwd.Text == string.Empty)
+            {
                 MessageBox.Show("Bitte fuellen Sie alle Felder mit Daten.");
-            } else if(input_nutzerName.Text.Length < 3){
+            }
+            else if (input_nutzerName.Text.Length < 3)
+            {
                 MessageBox.Show("Bitte geben Sie einen gueltigen Nutzernamen mit mindestens 3 Zeichen ein.");
-            } else if(input_pwd.Text.Length < 6){
+            }
+            else if (input_pwd.Text.Length < 6)
+            {
                 MessageBox.Show("Bitte geben Sie ein gueltiges Passwort mit mindestens 6 Zeichen ein.");
-            } else if (!input_nutzerName.Text.Contains('.')){
+            }
+            else if (!input_nutzerName.Text.Contains('.'))
+            {
                 MessageBox.Show("Das ist kein korrekter Nutzername.");
             }
 
