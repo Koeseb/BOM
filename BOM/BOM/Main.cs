@@ -91,9 +91,9 @@ namespace BOM
                 comboBox_USt.Invoke(new MethodInvoker(delegate { USt = int.Parse(comboBox_USt.SelectedItem.ToString().Remove(comboBox_USt.SelectedItem.ToString().IndexOf('%'))); }));
             }
 
-            if (input_Beschreibung.InvokeRequired)
+            if (comboBox_Beschreibung.InvokeRequired)
             {
-                input_Beschreibung.Invoke(new MethodInvoker(delegate { beschreibung = input_Beschreibung.Text; }));
+                comboBox_Beschreibung.Invoke(new MethodInvoker(delegate { beschreibung = comboBox_Beschreibung.Text; }));
             }
 
             if (input_Betrag.InvokeRequired)
@@ -159,11 +159,6 @@ namespace BOM
             {
                 DbManager.Connection.Close();
             }
-        }
-
-        private string getSQLDate(DateTime dt)
-        {
-            return "#" + dt.ToString("d", new CultureInfo("en-US")) + "#";
         }
 
         private void fillActivityList()

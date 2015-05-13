@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.ActivityPage = new System.Windows.Forms.TabPage();
+            this.button_Refresh = new System.Windows.Forms.Button();
             this.listBox_ActivityList = new System.Windows.Forms.ListBox();
             this.label_Activities = new System.Windows.Forms.Label();
             this.BuchungsPage = new System.Windows.Forms.TabPage();
@@ -40,7 +41,6 @@
             this.comboBox_GruppenWahl = new System.Windows.Forms.ComboBox();
             this.label_GruppenWahl = new System.Windows.Forms.Label();
             this.label_Beschreibung = new System.Windows.Forms.Label();
-            this.input_Beschreibung = new System.Windows.Forms.TextBox();
             this.label_Betrag = new System.Windows.Forms.Label();
             this.input_Betrag = new System.Windows.Forms.TextBox();
             this.label_USt = new System.Windows.Forms.Label();
@@ -54,7 +54,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button_Refresh = new System.Windows.Forms.Button();
+            this.comboBox_Beschreibung = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.ActivityPage.SuspendLayout();
             this.BuchungsPage.SuspendLayout();
@@ -84,6 +84,16 @@
             this.ActivityPage.Text = "Aktivitäten";
             this.ActivityPage.UseVisualStyleBackColor = true;
             // 
+            // button_Refresh
+            // 
+            this.button_Refresh.Location = new System.Drawing.Point(544, 23);
+            this.button_Refresh.Name = "button_Refresh";
+            this.button_Refresh.Size = new System.Drawing.Size(75, 23);
+            this.button_Refresh.TabIndex = 2;
+            this.button_Refresh.Text = "Refresh";
+            this.button_Refresh.UseVisualStyleBackColor = true;
+            this.button_Refresh.Click += new System.EventHandler(this.button_Refresh_Click);
+            // 
             // listBox_ActivityList
             // 
             this.listBox_ActivityList.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -106,6 +116,7 @@
             // 
             // BuchungsPage
             // 
+            this.BuchungsPage.Controls.Add(this.comboBox_Beschreibung);
             this.BuchungsPage.Controls.Add(this.comboBox_USt);
             this.BuchungsPage.Controls.Add(this.button_Book);
             this.BuchungsPage.Controls.Add(this.radioButton_Eingangsrechnung);
@@ -113,7 +124,6 @@
             this.BuchungsPage.Controls.Add(this.comboBox_GruppenWahl);
             this.BuchungsPage.Controls.Add(this.label_GruppenWahl);
             this.BuchungsPage.Controls.Add(this.label_Beschreibung);
-            this.BuchungsPage.Controls.Add(this.input_Beschreibung);
             this.BuchungsPage.Controls.Add(this.label_Betrag);
             this.BuchungsPage.Controls.Add(this.input_Betrag);
             this.BuchungsPage.Controls.Add(this.label_USt);
@@ -200,15 +210,6 @@
             this.label_Beschreibung.Size = new System.Drawing.Size(91, 17);
             this.label_Beschreibung.TabIndex = 11;
             this.label_Beschreibung.Text = "Beschreibung";
-            // 
-            // input_Beschreibung
-            // 
-            this.input_Beschreibung.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.input_Beschreibung.Location = new System.Drawing.Point(261, 47);
-            this.input_Beschreibung.Multiline = true;
-            this.input_Beschreibung.Name = "input_Beschreibung";
-            this.input_Beschreibung.Size = new System.Drawing.Size(349, 86);
-            this.input_Beschreibung.TabIndex = 10;
             // 
             // label_Betrag
             // 
@@ -324,15 +325,13 @@
             this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.bearbeitenToolStripMenuItem.Text = "Bearbeiten";
             // 
-            // button_Refresh
+            // comboBox_Beschreibung
             // 
-            this.button_Refresh.Location = new System.Drawing.Point(544, 23);
-            this.button_Refresh.Name = "button_Refresh";
-            this.button_Refresh.Size = new System.Drawing.Size(75, 23);
-            this.button_Refresh.TabIndex = 2;
-            this.button_Refresh.Text = "Refresh";
-            this.button_Refresh.UseVisualStyleBackColor = true;
-            this.button_Refresh.Click += new System.EventHandler(this.button_Refresh_Click);
+            this.comboBox_Beschreibung.FormattingEnabled = true;
+            this.comboBox_Beschreibung.Location = new System.Drawing.Point(261, 47);
+            this.comboBox_Beschreibung.Name = "comboBox_Beschreibung";
+            this.comboBox_Beschreibung.Size = new System.Drawing.Size(349, 21);
+            this.comboBox_Beschreibung.TabIndex = 18;
             // 
             // Main
             // 
@@ -378,7 +377,6 @@
         private System.Windows.Forms.Label label_Betrag;
         private System.Windows.Forms.TextBox input_Betrag;
         private System.Windows.Forms.Label label_Beschreibung;
-        private System.Windows.Forms.TextBox input_Beschreibung;
         private System.Windows.Forms.ComboBox comboBox_GruppenWahl;
         private System.Windows.Forms.Label label_GruppenWahl;
         private System.Windows.Forms.RadioButton radioButton_Eingangsrechnung;
@@ -386,5 +384,6 @@
         private System.Windows.Forms.Button button_Book;
         private System.Windows.Forms.ComboBox comboBox_USt;
         private System.Windows.Forms.Button button_Refresh;
+        private System.Windows.Forms.ComboBox comboBox_Beschreibung;
     }
 }
