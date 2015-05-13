@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.Data.OleDb;
+using System.Globalization;
 
 namespace BOM
 {
@@ -22,8 +23,6 @@ namespace BOM
 
         private void Main_Load(object sender, EventArgs e)
         {
-            // TODO: Diese Codezeile lädt Daten in die Tabelle "dbDataSet.Log". Sie können sie bei Bedarf verschieben oder entfernen.
-            //this.logTableAdapter.Fill(this.dbDataSet.Log);
             comboBox_USt.Items.Add("0%");
             comboBox_USt.Items.Add("10%");
             comboBox_USt.Items.Add("20%");
@@ -59,8 +58,8 @@ namespace BOM
 
         private void book()
         {
-            string rechnungsDatum = string.Empty;
-            string buchungsDatum = string.Empty;
+            DateTime rechnungsDatum = DateTime.Now;
+            DateTime buchungsDatum = DateTime.Now;
             double betriebsAnteil = 0;
             int USt = 0;
             string beschreibung = string.Empty;
@@ -74,12 +73,12 @@ namespace BOM
              */
             if (dateTime_Rechnungsdatum.InvokeRequired)
             {
-                dateTime_Rechnungsdatum.Invoke(new MethodInvoker(delegate { rechnungsDatum = dateTime_Rechnungsdatum.Text; }));
+                dateTime_Rechnungsdatum.Invoke(new MethodInvoker(delegate { rechnungsDatum = DateTime.Parse(dateTime_Rechnungsdatum.Text); }));
             }
 
             if (dateTime_Buchungsdatum.InvokeRequired)
             {
-                dateTime_Buchungsdatum.Invoke(new MethodInvoker(delegate { buchungsDatum = dateTime_Buchungsdatum.Text; }));
+                dateTime_Buchungsdatum.Invoke(new MethodInvoker(delegate { buchungsDatum = DateTime.Parse(dateTime_Buchungsdatum.Text); }));
             }
 
             if (input_Betriebsanteil.InvokeRequired)
@@ -160,6 +159,11 @@ namespace BOM
             {
                 DbManager.Connection.Close();
             }
+        }
+
+        private string getSQLDate(DateTime dt)
+        {
+            return "#" + dt.ToString("d", new CultureInfo("en-US")) + "#";
         }
 
         private void fillActivityList()
