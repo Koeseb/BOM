@@ -34,6 +34,7 @@
             this.listBox_ActivityList = new System.Windows.Forms.ListBox();
             this.label_Activities = new System.Windows.Forms.Label();
             this.BuchungsPage = new System.Windows.Forms.TabPage();
+            this.comboBox_Beschreibung = new System.Windows.Forms.ComboBox();
             this.comboBox_USt = new System.Windows.Forms.ComboBox();
             this.button_Book = new System.Windows.Forms.Button();
             this.radioButton_Eingangsrechnung = new System.Windows.Forms.RadioButton();
@@ -54,7 +55,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.comboBox_Beschreibung = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.ActivityPage.SuspendLayout();
             this.BuchungsPage.SuspendLayout();
@@ -96,12 +96,13 @@
             // 
             // listBox_ActivityList
             // 
+            this.listBox_ActivityList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBox_ActivityList.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox_ActivityList.FormattingEnabled = true;
             this.listBox_ActivityList.ItemHeight = 21;
             this.listBox_ActivityList.Location = new System.Drawing.Point(3, 52);
             this.listBox_ActivityList.Name = "listBox_ActivityList";
-            this.listBox_ActivityList.Size = new System.Drawing.Size(624, 277);
+            this.listBox_ActivityList.Size = new System.Drawing.Size(624, 273);
             this.listBox_ActivityList.TabIndex = 1;
             // 
             // label_Activities
@@ -139,6 +140,14 @@
             this.BuchungsPage.TabIndex = 1;
             this.BuchungsPage.Text = "Buchungen";
             this.BuchungsPage.UseVisualStyleBackColor = true;
+            // 
+            // comboBox_Beschreibung
+            // 
+            this.comboBox_Beschreibung.FormattingEnabled = true;
+            this.comboBox_Beschreibung.Location = new System.Drawing.Point(261, 47);
+            this.comboBox_Beschreibung.Name = "comboBox_Beschreibung";
+            this.comboBox_Beschreibung.Size = new System.Drawing.Size(349, 21);
+            this.comboBox_Beschreibung.TabIndex = 18;
             // 
             // comboBox_USt
             // 
@@ -325,14 +334,6 @@
             this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.bearbeitenToolStripMenuItem.Text = "Bearbeiten";
             // 
-            // comboBox_Beschreibung
-            // 
-            this.comboBox_Beschreibung.FormattingEnabled = true;
-            this.comboBox_Beschreibung.Location = new System.Drawing.Point(261, 47);
-            this.comboBox_Beschreibung.Name = "comboBox_Beschreibung";
-            this.comboBox_Beschreibung.Size = new System.Drawing.Size(349, 21);
-            this.comboBox_Beschreibung.TabIndex = 18;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -342,7 +343,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
-            this.Text = "Main";
+            this.Text = "BOM";
             this.Load += new System.EventHandler(this.Main_Load);
             this.tabControl1.ResumeLayout(false);
             this.ActivityPage.ResumeLayout(false);
