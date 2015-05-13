@@ -28,3 +28,6 @@ C:\Users\Sebastian\Documents\GitHub - Kopie\BOM\BOM\BOM\obj\x86\Debug\BOM.Form1.
 C:\Users\Sebastian\Documents\GitHub - Kopie\BOM\BOM\BOM\obj\x86\Debug\BOM.Main.resources
 C:\Users\Sebastian\Documents\GitHub - Kopie\BOM\BOM\BOM\obj\x86\Debug\BOM.Properties.Resources.resources
 C:\Users\Sebastian\Documents\GitHub - Kopie\BOM\BOM\BOM\obj\x86\Debug\BOM.csproj.GenerateResource.Cache
+C:\Users\COMPAQ\Documents\GitHub\BOM\BOM\BOM\bin\Debug\BOM.exe.config
+C:\Users\COMPAQ\Documents\GitHub\BOM\BOM\BOM\obj\x86\Debug\BOM.exe
+C:\Users\COMPAQ\Documents\GitHub\BOM\BOM\BOM\obj\x86\Debug\BOM.pdb
